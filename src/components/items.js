@@ -16,7 +16,7 @@ const Items =()=>{
     };
       fetch("http://localhost:8080/api/items", requestOptions)
       .then((response) => response.json())
-      .then((data) =>{        
+      .then((data) =>{  console.log(data)      
         setData(data)})
       .catch((e)=>{
         console.error(e)
@@ -25,12 +25,14 @@ const Items =()=>{
 
     
     const showItems = (idItem) =>{      
-       navigate('/items/'+idItem);
+       navigate('/itemsDetails/'+idItem);
     }
     return(
       <div>
-        <h1>items</h1>
-        <div>
+        <div className='title'>
+          <h1>Listado de Items</h1>
+        </div>
+        <div className='container'>
           <table>
             <tbody>
               <tr>
@@ -42,13 +44,13 @@ const Items =()=>{
                 <th>Estado</th>
               </tr>         
               {data?.map( (item) => (
-                <tr key={item.idItem} onDoubleClick ={() => showItems(item.idItem)}>
-                      <td>{item.itemCode}</td>
-                      <td>{item.descriptionItem}</td>
-                      <td>{numeral(item.price).format('0,0[.]00 $')}</td>
-                      <td>{item.creator.name}</td>
-                      <td>{item.creationDate}</td>
-                      <td>{item.state}</td>
+                <tr key={item.idItem} onDoubleClick ={() => showItems(item.idItem)} style={{cursor:'pointer'}}>
+                      <td> <p>{item.itemCode}</p></td>
+                      <td> <p>{item.descriptionItem}</p></td>
+                      <td> <p>{numeral(item.price).format('0,0[.]00 $')}</p></td>
+                      <td> <p>{item.creator.name}</p></td>
+                      <td> <p>{item.creationDate}</p></td>
+                      <td> <p>{item.state}</p></td>
                 </tr>
               ))}
             </tbody>

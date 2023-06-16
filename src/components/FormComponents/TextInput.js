@@ -3,11 +3,16 @@ import React from 'react'
 
 const TextInput = ({label, ...props}) => {
     const[ field, meta]= useField(props)
-   
   return (
-    <div>
+    <div className="input-container">
+      <div style={{display:'flex'}}>
         <label className='label'>{label}</label>
-        <input className='input' type="email" {... field} />
+        <div className="input-wrapper">
+           <input className='input'  placeholder={props.placeholder} readOnly={props?.readOnly}  {... field} />
+        </div>
+        
+      </div>
+     
         {meta.touched && meta.error ? <div className='error'>{meta.error}</div> : null}
     </div>
   )

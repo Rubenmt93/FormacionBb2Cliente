@@ -1,11 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 
 import { Formik, Form } from "formik"
-import EmailInput from './FormComponents/EmailInput'
+import EmailInput from './FormComponents/TextInput'
 import PasswordInput from './FormComponents/PasswordInput'
+import ButtonBB2 from './FormComponents/ButtonBB2'
 import { useEffect, useState } from "react";
 function Login() {
     const [query, setQuery] = useState("");   
-       
+    const navigate = useNavigate();
+  
     useEffect(() =>{
        if(!query) return
         const requestOptions = {   
@@ -25,6 +28,7 @@ function Login() {
         .then(response => { 
           if(response.headers.get("Authorization")){
             localStorage.setItem("FormacionBb2Token", response.headers.get("Authorization"))
+            navigate('/');
           }else{
             console.log("Mal autenticado")
           }       
@@ -55,28 +59,31 @@ function Login() {
           }
         return errors
     }
-    const logOut = () =>{
-      localStorage.setItem("FormacionBb2Token","")
+   
+
     
-    }
    
   return (
     <div>
-      <h1>Login</h1>
-      <div>
+      <div className='title'>
+        <h1>Inicia sesión</h1>
+      </div>
+      <div className='container'>
         <Formik
+        
           initialValues={{email:'',password:''}}
           validate={validate}
           onSubmit ={submit}>
       
-          <Form>
-            <EmailInput name='email' label="Email:" />      
-            <PasswordInput name='password' label="Password:" />          
-            <button type='submit'>Enviar</button>
-          </Form> 
-        </Formik> 
+          <Form className ="formik">
+            <EmailInput  type='email' name='email' placeholder="👤 Email"  />      
+            <PasswordInput name='password'  label="Password:" />          
+            <ButtonBB2 name="button" primary='true' type='submit' text="Enviar"/>
 
-        <h1 onClick={logOut} >LogOut</h1>
+          </Form> 
+
+          {}
+        </Formik> 
       </div>
     </div>
   )

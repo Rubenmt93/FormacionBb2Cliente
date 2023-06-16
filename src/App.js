@@ -1,5 +1,5 @@
 import {Switch, Route, Link, Routes} from 'react-router-dom'
-import ItemCard from './components/ItemCard';
+import ItemDetail from './components/ItemDetail';
 import Items from './components/items';
 import NavBar from './components/Navbar';
 import Login from './components/Login';
@@ -15,7 +15,7 @@ function App() {
         <section>
           <Routes>
             <Route path="/" element= {<Items/>} />
-            <Route path="/items/:idItem" element= {<ItemCard/>} />
+            <Route path="/itemsDetails/:idItem" element= {<ItemDetail/>} />
             <Route path="/login"  element={<Login/>}/> 
           </Routes>
         </section>
