@@ -35,6 +35,8 @@ code {
   text-decoration: none;
   font-size: 14pt;
   border-radius: 2px;
+  margin: 0 1rem;
+  max-width: 120px;
  }
 /* .................................................... */
 table {
@@ -104,7 +106,7 @@ nav > ul >li > a {
 
 .input-wrapper{
   display: inline-flex;
-  width: 200px;
+  width: 100%;
   border-bottom: solid 1px#0058A3;
 }
 .input-wrapper .icon{
@@ -114,13 +116,13 @@ nav > ul >li > a {
   cursor: pointer;
 }
 .input-wrapper input{
- 
+  width: 90%;
   border-style: none;
   background: white;
  
  
 }
-.input-wrapper input:focus{
+.input-wrapper input:focus, select:focus{
  outline: none;
 }
 
@@ -150,7 +152,7 @@ input:-webkit-autofill:active{
   margin: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
+ grid-template-rows: 1fr;
 }
 
 .ItemCard-Colum1{
@@ -166,5 +168,22 @@ input:-webkit-autofill:active{
 }
 label{
   display: inline-block;
-  width: 100px;
+  width: 120px;
+}
+.ItemCard-Botonera{
+  display: flex;
+  flex-direction: row-reverse;
+ 
+}
+
+select{
+  border-style: none;
+  
+}
+
+
+.reverse-row{
+  color: palevioletred;
+  display: flex;
+  flex-direction: column-reverse;
 }

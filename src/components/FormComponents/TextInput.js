@@ -6,8 +6,8 @@ const TextInput = ({label, ...props}) => {
   return (
     <div className="input-container">
       <div style={{display:'flex'}}>
-        <label className='label'>{label}</label>
-        <div className="input-wrapper">
+        {label?<label className='label'>{label}</label>:<></>}
+        <div className="input-wrapper reverse-row">
            <input className='input'  placeholder={props.placeholder} readOnly={props?.readOnly}  {... field} />
         </div>
         

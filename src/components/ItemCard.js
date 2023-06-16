@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {  Formik, Form } from "formik"
 import TextInput from './FormComponents/TextInput'
 import ButtonBB2 from './FormComponents/ButtonBB2'
+import SelectInput from './FormComponents/SelectInput';
 
 function ItemCard({...props}) {
   const [itemCode, setItemCode] = useState("");
@@ -38,12 +39,21 @@ function ItemCard({...props}) {
                 
                 <div className='ItemCard-Colum2'>
                   <TextInput  type='number' name="price"  label="Precio"  readOnly="readOnly"/>
-                  <TextInput  type='text' name="state"  label="Estado"  readOnly="readOnly"/>
+                  <SelectInput label='Estado' name='state' disabled >
+                      <option value='Activo'> Activo</option>
+                      <option value='Descontinuado'> Descontinuado</option>
+                     
+                  </SelectInput>
+                  {/* <TextInput  type='text' name="state"  label="Estado"  readOnly="readOnly"/> */}
                   <TextInput  type='text' name="date"  label="Fecha de Creacion"  readOnly="readOnly"/>
                 </div>
+                <p></p>
+                <div className='ItemCard-Botonera'>
+                  <ButtonBB2 className="buttonBB2" name="button" primary='true' type='button' text="Guardar"/> 
+                  <ButtonBB2 className="buttonBB2" name="button" primary='true' type='button' text="Nuevo"/>             
+                </div>
+            
               
-             
-              {/* <ButtonBB2 name="button" primary='true' type='button' text="Enviar"/> */}
           </Form>          
         </Formik>  
       </div>
