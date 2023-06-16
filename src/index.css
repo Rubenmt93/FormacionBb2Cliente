@@ -183,7 +183,18 @@ select{
 
 
 .reverse-row{
-  color: palevioletred;
+  
   display: flex;
   flex-direction: column-reverse;
+  align-items: end;
+}
+
+a{
+  display: flex;
+  vertical-align: middle;
+}
+
+.flexLine{
+  display: flex;
+  
 }

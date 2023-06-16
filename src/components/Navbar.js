@@ -2,6 +2,7 @@
 import  { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Link} from 'react-router-dom'
+import { BiLogOut } from "react-icons/bi";
 function Navbar() {
   const token= localStorage.getItem('FormacionBb2Token');
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Navbar() {
             {(token=="")?
                <li><Link to='/login'> Login </Link></li>
                :
-               <li> <a href='#' onClick={logOut} >Logout</a></li>
+               <li> <a href='#' onClick={logOut} > <BiLogOut/>Logout</a></li>
             }
         </ul>
     </nav>

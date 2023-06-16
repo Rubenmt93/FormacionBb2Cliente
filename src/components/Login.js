@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-
 import { Formik, Form } from "formik"
-import EmailInput from './FormComponents/TextInput'
+import EmailLoginInput from './FormComponents/EmailLoginInput'
 import PasswordInput from './FormComponents/PasswordInput'
 import ButtonBB2 from './FormComponents/ButtonBB2'
 import { useEffect, useState } from "react";
@@ -45,8 +44,7 @@ function Login() {
    
     const validate = (values) => {
         const errors ={}      
-        /*
-         */
+       
         if (!values.email) {
             errors.email = 'Required';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -76,9 +74,16 @@ function Login() {
           onSubmit ={submit}>
       
           <Form className ="formik">
-            <EmailInput  type='email' name='email' placeholder="👤 Email"  />      
-            <PasswordInput name='password'  label="Password:" />          
-            <ButtonBB2 name="button" primary='true' type='submit' text="Enviar"/>
+             
+             
+             <EmailLoginInput  type='email' name='email' placeholder="Email"  />    
+             
+             
+            <PasswordInput name='password' />      
+            <div className='reverse-row'>
+              <ButtonBB2 name="button" primary='true' type='submit' text="Enviar"/>
+            </div>    
+           
 
           </Form> 
 

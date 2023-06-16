@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useField } from 'formik'
 import { AiFillEye } from "react-icons/ai";
-import { AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEyeInvisible,AiFillLock } from "react-icons/ai";
 
 const PasswordInput = ({label, ...props}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +12,8 @@ const PasswordInput = ({label, ...props}) => {
     <div className="input-container">
         
         <div className="input-wrapper">
-          <input className='input'  onChange={onChange} type={showPassword? 'text':'password'} placeholder="🔒︎ Contraseña" {... field} />
+          <AiFillLock/> 
+          <input className='input'  onChange={onChange} type={showPassword? 'text':'password'} placeholder="Contraseña" {... field} />
           <div className="icon" onClick={() => setShowPassword(!showPassword)}>
             {showPassword? <AiFillEyeInvisible/> : <AiFillEye/>}
           </div>
