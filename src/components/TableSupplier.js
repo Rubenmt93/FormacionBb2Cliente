@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import {  AiOutlinePlusCircle } from 'react-icons/ai'
 
 function TableSupplier( {...props}) {
   
@@ -6,6 +6,10 @@ function TableSupplier( {...props}) {
     <div>
       <h3 className="title">Reducciones de Precio</h3>
         <div className='container'>
+        <div className='reverse-row'>
+            <AiOutlinePlusCircle/>
+          </div>
+
           <table>
             <tbody>
               <tr>

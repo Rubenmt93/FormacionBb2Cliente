@@ -27,6 +27,7 @@ function Login() {
         .then(response => { 
           if(response.headers.get("Authorization")){
             localStorage.setItem("FormacionBb2Token", response.headers.get("Authorization"))
+            localStorage.setItem("FormacionBb2User", response.headers.get("User"))
             navigate('/');
           }else{
             console.log("Mal autenticado")
@@ -69,7 +70,7 @@ function Login() {
       <div className='container'>
         <Formik
         
-          initialValues={{email:'',password:''}}
+          initialValues={{email:'ruben@gmail.com',password:'admin'}}
           validate={validate}
           onSubmit ={submit}>
       

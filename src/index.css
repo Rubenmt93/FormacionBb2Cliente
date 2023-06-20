@@ -6,7 +6,7 @@ html {
   height: 100%;
   margin: 0;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  background-color: white;
+  background-color: whitesmoke;
  }
 
 code {
@@ -21,12 +21,14 @@ code {
   margin: 0;
  }
  .container {
-  margin-bottom: 1rem;
+
   padding: 1rem;
+  background: white;
+  margin: 1rem ;
  }
 
  .primary-button{
-  background-color: #0051BA; /* Green */
+  background-color: #0051BA; 
   border: none;
   color: white;
   padding:0 16px;
@@ -37,6 +39,33 @@ code {
   border-radius: 2px;
   margin: 0 1rem;
   max-width: 120px;
+ }
+ .secondary-button{
+  background-color: #ffffff;
+  border: solid 2px #0051BA;
+  color: #0051BA;
+  padding:0 16px;
+  height: 36px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14pt;
+  border-radius: 2px;
+  margin: 0 1rem;
+  max-width: 120px;
+ }
+ .primary-button:hover{
+  background-color: 	#002F6B; 
+  
+ }
+ .secondary-button:hover{
+  background-color: 	whitesmoke; 
+ }
+ .filterButton{
+   
+   margin-right: 1rem !important;
+ }
+ svg{
+   margin: auto 0;
  }
 /* .................................................... */
 table {
@@ -74,35 +103,34 @@ p{
   display: flex;
   justify-content: center;
 }
-/* .................................................... */
-nav{
-  background-color: #0058A3;
+
+
+a{
+  display: flex;
+  vertical-align: middle;
+}
+
+.reverse-row{
+  
   display: flex;
   flex-direction: row-reverse;
 }
 
-nav  >ul{
+
+.flexLine{
+  display: flex;
   
- margin: auto 0;
- display: flex;
-
- padding: 1.25rem;
-
 }
 
-nav >ul > li {
-  display: inline-block;
-  color: white;
-  list-style: none ;
-  margin: 0 1rem;
+select {
+ 
+  background:none;
+  color: black;
+  text-align: center;
+  font-size: medium;
 }
+/* .................................................... */
 
-nav > ul >li > a {
-  color:white;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: bold;  
-}
 
 .input-wrapper{
   display: inline-flex;
@@ -139,6 +167,17 @@ nav > ul >li > a {
 input:-webkit-autofill:active{
   -webkit-text-fill-color: white;
 }
+select{
+  border-style: none;
+  
+}
+
+label{
+  display: inline-block;
+  width: 120px;
+  margin: auto 0.5rem !important;
+}
+/* .................................................... */
 .formik {
   max-width: 300px;
   margin: auto;
@@ -148,53 +187,26 @@ input:-webkit-autofill:active{
 }
 
 .ItemCard-info{
-  max-width: 90%;
-  margin: auto;
+  max-width: 100%; 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
- grid-template-rows: 1fr;
-}
-
-.ItemCard-Colum1{
-  grid-area: 1 / 1 / 2 / 2;
-  margin: auto;
-
-
-}
-.ItemCard-Colum2 { grid-area: 1 / 2 / 2 / 3;
-  margin: auto;
-
- 
-}
-label{
-  display: inline-block;
-  width: 120px;
-}
-.ItemCard-Botonera{
-  display: flex;
-  flex-direction: row-reverse;
- 
-}
-
-select{
-  border-style: none;
-  
+  grid-template-rows: 1fr;
 }
 
 
-.reverse-row{
-  
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: end;
+.ItemCard-info :nth-child(odd) {
+  grid-area: 1 / 1 / 2 / 2;  
+  margin: 0.5rem auto;
+
+
+}
+.ItemCard-info :nth-child(even) {
+  grid-area: 1 / 2 / 2 / 3;  
+  margin: 0.5rem auto;
+}
+.react-datepicker-wrapper, .react-datepicker__input-container  {
+  margin-bottom: 0 !important;
 }
 
-a{
-  display: flex;
-  vertical-align: middle;
-}
 
-.flexLine{
-  display: flex;
-  
-}
+

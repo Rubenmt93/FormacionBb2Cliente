@@ -1,50 +1,44 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom'
-
+import { useParams, useNavigate } from 'react-router-dom'
 import ItemCard from './ItemCard';
-import TableSupplier from './TableSupplier';
-import TableDiscount from './TableDiscount';
-
 function ItemDetail() {
     const { idItem } = useParams()
-    const [data, setData] = useState(null);
-    useEffect(() =>{
+    const [data, setData] = useState(null);  
+    const navigate = useNavigate();
+    const userLocal =  localStorage.getItem('FormacionBb2User');      
     const token= localStorage.getItem('FormacionBb2Token');
-        const requestOptions = {
-        method: 'GET',
-        headers: { 'Authorization': token }
-        
-        };
-        fetch("http://localhost:8080/api/items/"+idItem, requestOptions)
-        .then((response) => response.json())
-        .then((data) =>{      
-            console.log("Respuesta de la api en Details",data)  
-            setData((data))            
-        })
-        .catch((e)=>{
-            console.error(e)
-        });
-        },[])  
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Authorization': token }        
+    }
+    useEffect(() =>{      
+      if(!userLocal){      
+        navigate('/');
+      }     
+      fetch("http://localhost:8080/api/items/"+idItem, requestOptions)
+      .then((response) => response.json())
+      .then((data) =>{   setData((data)) }).catch((e)=>  { console.error(e) });
+    },[navigate])  
+   
 
-    return (
-    <div className='container'>       
+
+    
+
+    return  !data ? (<></>) : (
+    <div >       
       <div className='title'>
         <h1>Detalle del Item</h1>
-      </div>
-        <div className='container'>
-         <ItemCard data={data}/> 
+      </div>     
+      <div className='container'>
+          <ItemCard data={data}/>       
       </div>
 
-      <div>
-        <TableSupplier suppliers={data?.suppliers}/>
-        <TableDiscount discount={data?.priceReductions}/>
-      </div>
 
     </div>
   )
- 
-  
 }
+  
+
 
 export default ItemDetail

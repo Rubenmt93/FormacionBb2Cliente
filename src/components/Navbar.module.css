@@ -1,0 +1,28 @@
+nav{
+    background-color: #0058A3;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  nav  >ul{
+    
+   margin: auto 0;
+   display: flex;
+  
+   padding: 1.25rem;
+  
+  }
+  
+  nav >ul > li {
+    display: inline-block;
+    color: white;
+    list-style: none ;
+    margin: 0 1rem;
+  }
+  
+  nav > ul >li > a {
+    color:white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;  
+  }

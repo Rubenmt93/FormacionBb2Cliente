@@ -1,4 +1,4 @@
-import {Switch, Route, Link, Routes} from 'react-router-dom'
+import { Route, Routes} from 'react-router-dom'
 import ItemDetail from './components/ItemDetail';
 import Items from './components/items';
 import NavBar from './components/Navbar';
