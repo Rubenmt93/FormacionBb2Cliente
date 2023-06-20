@@ -3,7 +3,7 @@ import  { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Link} from 'react-router-dom'
 import { BiLogOut } from "react-icons/bi";
-import styles from './Navbar.module.css'
+import './Navbar.module.css'
 function Navbar() {
   const token= localStorage.getItem('FormacionBb2Token');
   const navigate = useNavigate();
@@ -22,11 +22,8 @@ function Navbar() {
   
   return (
     <nav>
-        <ul>
-          
-            <li><Link to='/'> Items </Link></li>
-           
-
+        <ul>          
+            <li><Link to='/'> Items </Link></li>         
             {(token==="")?
                <li><Link to='/login'> Login </Link></li>
                :

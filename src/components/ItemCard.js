@@ -1,13 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-
 import TextInput from './FormComponents/TextInput';
 import SelectInput from './FormComponents/SelectInput';
 import { AiOutlineSave, AiOutlinePlusCircle } from 'react-icons/ai'
 import DatePicker from './FormComponents/DatePicker';
-
 import TableSupplier from './TableSupplier';
 import TableDiscount from './TableDiscount';
+import Modal from './Modal';
 
 function ItemCard({...props}) {  
 
@@ -27,7 +26,14 @@ function ItemCard({...props}) {
     const currentUser = localStorage.getItem("FormacionBb2User").split(" ");
     const [touched, setTouched] = useState(false)
     const [newItemFlag, setNewItemFlag]  = useState(false)
-
+    const [estadoModal, SetEstadoModal] = useState(false);
+    const [estadoModalConfirmacion, SetEstadoModalConfirmacion] = useState(
+        {
+            estado:false,
+            mensaje:"",
+            cuerpo:""
+        }
+    );
     useEffect(() =>{         
         setDatos({
             ...datos,
@@ -93,10 +99,12 @@ function ItemCard({...props}) {
         
         fetch("http://localhost:8080/api/items", requestOptions)
             .then(response => {         
-                console.log(response)
+               SetEstadoModalConfirmacion({estado :true, mensaje :"Item creado",   cuerpo: "Se ha creado el nuevo item"})
             }).catch((e)=>{
                 console.error(e)
         });
+
+        setTouched(false);
     }
     const saveItem = (event) => {
         event.preventDefault()      
@@ -129,7 +137,7 @@ function ItemCard({...props}) {
         
         fetch("http://localhost:8080/api/items", requestOptions)
             .then(response => {         
-                console.log(response)
+                SetEstadoModalConfirmacion({estado :true, mensaje :"Item Actualizado", cuerpo: "Se han actualizado los campos del item"})
             }).catch((e)=>{
                 console.error(e)
         });
@@ -138,8 +146,17 @@ function ItemCard({...props}) {
     }
 }
 
-    const newItem = () => {
+    const checkChanges  =() => {
         if(!touched){
+            newItem()
+        }else{
+            SetEstadoModal(!estadoModal)
+            
+        }
+    }
+
+    const newItem = () => {
+       
             setDatos({
                 idItem: null,
                 itemCode: '',
@@ -153,9 +170,7 @@ function ItemCard({...props}) {
                 discontinuedReport: null,
             })
             setNewItemFlag(true)
-        }else{
-            alert('ajaja')
-        }
+            setTouched(false)
     }
 
    
@@ -164,8 +179,9 @@ function ItemCard({...props}) {
         <div>        
             <form onSubmit={saveItem} >
                 <div className='reverse-row'>
+                    <button className="secondary-button"   type='button'  onClick={checkChanges}><p>  Nuevo  <AiOutlinePlusCircle/></p> </button>  
                     <button className="primary-button" type='submit'><p>  Guardar <AiOutlineSave/></p> </button>
-                    <button className="secondary-button"   type='button'  onClick={newItem}><p>  Nuevo  <AiOutlinePlusCircle/></p> </button>  
+                   
                 </div>
                 <div className ="formik ItemCard-info">
                     <div className='ItemCard-Colum1'>
@@ -191,9 +207,40 @@ function ItemCard({...props}) {
                 </div>                        
             </form>    
 
-            <TableSupplier suppliers={datos?.suppliers}/>
-            <TableDiscount discount={datos?.priceReductions}/>      
-         
+            <TableSupplier suppliers={datos?.suppliers} itemCode={datos.idItem}/>
+            <TableDiscount discount={datos?.priceReductions} itemCode={datos.idItem}/>      
+           
+            <Modal
+                estado={estadoModal}              
+                cambiarEstado={SetEstadoModal}                  
+                mostrarHeader={false}        
+            >
+
+                <div className='contenido'>
+                    <h1>Descartar Cambios</h1>
+                    <p>Existen cambios sin guardar.</p>
+                     <div className='reverse-row'>
+                         <button className='secondary-button' onClick={() => {newItem(); SetEstadoModal(!estadoModal)}}>Aceptar</button>
+                         <button className='primary-button' onClick={() => SetEstadoModal(!estadoModal)}>Cancelar</button>
+                        
+                     </div>
+                   
+                </div>
+            </Modal>
+
+            <Modal
+                estado={estadoModalConfirmacion.estado}
+                cerrar={false}
+                cambiarEstado={estadoModalConfirmacion.estado}>
+
+                <div className='contenido'>
+                    <h1>{estadoModalConfirmacion.mensaje}</h1>
+                    <p>{estadoModalConfirmacion.cuerpo}</p>
+                     <div className='reverse-row'>                      
+                         <button className='primary-button' onClick={() => SetEstadoModalConfirmacion({ estado: false})}>Ok!</button>                        
+                     </div>                   
+                </div>
+            </Modal>
       </div>
 
   )

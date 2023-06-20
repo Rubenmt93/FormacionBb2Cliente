@@ -4,7 +4,7 @@ function TableSupplier( {...props}) {
   
   return (
     <div>
-      <h3 className="title">Reducciones de Precio</h3>
+      <h3 className="title">Proveerdores</h3>
         <div className='container'>
         <div className='reverse-row'>
             <AiOutlinePlusCircle/>
