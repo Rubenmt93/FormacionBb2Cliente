@@ -2,12 +2,14 @@ import {  AiOutlinePlusCircle } from 'react-icons/ai'
 import Modal from './Modal';
 import React, { useState, useEffect } from 'react'
 import { Checkbox } from '@mui/material';
+import NewSupplierForm from './NewSupplierForm';
 
 function TableSupplier( {...props}) {
   
   const [estadoModal, setEstadoModal] =useState(false);
   const [data, setData] = useState(null); 
   const [priceReductionAplicated, setPriceReductionAplicated] = useState([])
+  const [newSupplier, setNewSupplier] = useState(false); 
   useEffect(() =>{
     const token = localStorage.getItem("FormacionBb2Token")
     const requestOptions = {
@@ -24,7 +26,7 @@ function TableSupplier( {...props}) {
       }).catch((e)=>{
         console.error(e)
       });
-})
+},[priceReductionAplicated, estadoModal])
   const submit = () => {
     props.handleSubmitDiscount(priceReductionAplicated)
   }
@@ -51,7 +53,7 @@ function TableSupplier( {...props}) {
     <div>
       <h3 className="title">Proveerdores</h3>
         <div className='container'>
-        <div className='reverse-row'>
+          <div className='reverse-row'>
             <AiOutlinePlusCircle onClick={() => openModal()}/>
           </div>
 
@@ -79,9 +81,13 @@ function TableSupplier( {...props}) {
                 estado={estadoModal}              
                 cambiarEstado={setEstadoModal}                  
                 mostrarHeader={false}>
-
+               
               <div className='contenido'>
-                <h1>Proveedores</h1>                
+                <h1>Proveedores</h1>     
+                <div className='flexLine' >
+                  {newSupplier?  <NewSupplierForm />   : <div className='reverse-row'><button className='secondary-button' onClick={() => setNewSupplier(!newSupplier)}>Crear</button> </div>}
+
+                </div>           
                 <table className='tablaModal'>
                   <tbody>
                     <tr>               
@@ -91,6 +97,7 @@ function TableSupplier( {...props}) {
                      
                     </tr>         
                     {data?.map( (supplier) => (
+                      
                     <tr key={supplier.idSupplier}>    
                           {}
                           <td> <p><Checkbox checked={priceReductionAplicated.includes(supplier.idSupplier)} onChange={() => {handleChange(supplier.idSupplier)}}></Checkbox> </p></td>                         

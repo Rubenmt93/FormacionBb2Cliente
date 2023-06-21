@@ -74,21 +74,14 @@ function Login() {
           validate={validate}
           onSubmit ={submit}>
       
-          <Form className ="formik">
-             
-             
-             <EmailLoginInput  type='email' name='email' placeholder="Email"  />    
-             
-             
-            <PasswordInput name='password' />      
-            <div className='reverse-row'>
-              <ButtonBB2 name="button" primary='true' type='submit' text="Enviar"/>
-            </div>    
-           
-
+          <Form className ="formik">                  
+             <EmailLoginInput  type='email' name='email' placeholder="Email"  />      
+              <PasswordInput name='password' />      
+              <div className='reverse-row'>
+                <ButtonBB2 name="button" primary='true' type='submit' text="Enviar"/>
+              </div>   
           </Form> 
-
-          {}
+          
         </Formik> 
       </div>
     </div>

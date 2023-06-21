@@ -116,19 +116,21 @@ a{
   justify-content: end;
 }
 
-
+h2{
+  margin: auto;
+}
 .flexLine{
   display: flex;
-  
+  width: 100%;
+  justify-content: center;
 }
 
 .flexColumn{
   display: flex;
-  flex-direction: column;
-  
+  flex-direction: column; 
+   
 }
-select {
- 
+select { 
   background:none;
   color: black;
   text-align: center;
@@ -212,7 +214,7 @@ label{
 .react-datepicker-wrapper, .react-datepicker__input-container  {
   margin-bottom: 0 !important;
 }
-
+/***************************************************************************/
 
 .contenido {
   display: flex;
@@ -235,6 +237,12 @@ label{
     margin-bottom: 5px;
   }
 
+
+  /************************************************/
   .checkBox{
     margin: auto !important;
+  }
+
+  .add-icon{
+    font-size: x-large;
   }
