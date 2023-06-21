@@ -35,17 +35,7 @@ function TableDiscount({...props}) {
     }    
   }
 
-  const eliminarElemento= (id) => {
-    console.log("id",id)
-    
-    var aux=[]
-    for( var i = 0; i < priceReductionAplicated.length;i++){
-      if(priceReductionAplicated[i] !== id){
-        aux.push(priceReductionAplicated[i])
-      }
-    }  
-    setPriceReductionAplicated(aux)
-  }
+
 
  
   
