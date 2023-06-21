@@ -14,7 +14,7 @@ const Items =()=>{
   var ruta ="http://localhost:8080/api/items";
   const currentUser = localStorage.getItem("FormacionBb2User").split(" ");
   useEffect(() =>{
-    console.log("object")
+    
     const requestOptions = {
       method: 'GET',
       headers: { 'Authorization': token }
@@ -30,6 +30,9 @@ const Items =()=>{
       .catch((e)=>{
         console.error(e)
       });
+
+
+      console.log(data)
   },[state, refresh])   
 
    
