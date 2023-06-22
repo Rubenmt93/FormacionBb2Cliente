@@ -2,12 +2,15 @@ import { Checkbox } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 import {  AiOutlinePlusCircle } from 'react-icons/ai'
 import Modal from './Modal';
+import './Modal.css'
+import NewPriceReductionForm from './NewPriceReductionForm'
 function TableDiscount({...props}) { 
   
   
   const [estadoModal, setEstadoModal] =useState(false);
   const [data, setData] = useState(null); 
   const [priceReductionAplicated, setPriceReductionAplicated] = useState([])
+  const [newPriceReduction, setNewPriceReduction] = useState(false); 
   useEffect(() =>{
       const token = localStorage.getItem("FormacionBb2Token")
       const requestOptions = {
@@ -24,7 +27,7 @@ function TableDiscount({...props}) {
         }).catch((e)=>{
           console.error(e)
         });
-  },[priceReductionAplicated, estadoModal])
+  },[priceReductionAplicated, estadoModal,newPriceReduction])
 
   const handleChange =(id) =>{    
     if (priceReductionAplicated.includes(id)){
@@ -33,13 +36,7 @@ function TableDiscount({...props}) {
       console.log("Añadió")
       setPriceReductionAplicated([...priceReductionAplicated,id])      
     }    
-  }
-
-
-
- 
-  
-
+  } 
   const openModal = ()  => {
     setEstadoModal(!estadoModal); 
     var aux=  []
@@ -47,6 +44,9 @@ function TableDiscount({...props}) {
       aux.push(element.idPriceReduction)
     })
     setPriceReductionAplicated(aux)
+  }
+  const handleCloseForm = (e) => {
+    setNewPriceReduction(!newPriceReduction)
   }
    const submit = () => {
      props.handleSubmitDiscount(priceReductionAplicated)
@@ -90,7 +90,14 @@ function TableDiscount({...props}) {
                 mostrarHeader={false}>
 
               <div className='contenido'>
-                <h1>Price Reductions</h1>                
+                <h1>Price Reductions</h1>  
+                <div className='flexLine' >
+                  {newPriceReduction?  <NewPriceReductionForm handleCloseForm={handleCloseForm} />   : 
+                                  <div className='reverse-row'>
+                                    <button className='secondary-button' onClick={() => setNewPriceReduction(!newPriceReduction)}>Crear</button> 
+                                  </div>}
+
+                </div>                 
                 <table className='tablaModal'>
                   <tbody>
                     <tr>               

@@ -242,7 +242,16 @@ label{
   .checkBox{
     margin: auto !important;
   }
-
+ .botonCerrarForm{
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: .3s ease all;
+  border-radius: 5px;
+  color: #1766DC;
+ }
   .openTableIcon{
     font-size: x-large;
   }

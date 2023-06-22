@@ -1,8 +1,6 @@
 import React from 'react'
-import { Formik, Form } from "formik"
 import TextInput from './FormComponents/TextInput'
-import ButtonBB2 from './FormComponents/ButtonBB2'
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 function NewSupplierForm({...props}) {
     const token = localStorage.getItem("FormacionBb2Token")  
     const [query, setQuery] = useState({
@@ -32,19 +30,11 @@ function NewSupplierForm({...props}) {
 
           handleCloseFormLocal()
 
-        })
-        
-        
-        .catch((e)=>  { console.error(e) });
-        
-       
-    }   
-
-
+        }).catch((e)=>  { console.error(e) });             
+    }  
     const submit = (event) => { 
         event.preventDefault()   
-        makeFetch()
-        console.log(query)   
+        makeFetch()         
     }
     const handleInputChange = (event) => {
        
@@ -55,7 +45,7 @@ function NewSupplierForm({...props}) {
     }
     const  handleCloseFormLocal = () => {
         props.handleCloseForm(query)
-        console.log(props)
+        
     }
   return (
     <div className='flexColumn'>

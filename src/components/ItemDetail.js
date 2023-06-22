@@ -162,7 +162,7 @@ function ItemDetail({...props}) {
     }
 
     const newItem = () => {
-    console.log("EL id de usuario es",currentUser[1] )
+    
             setData({
                 idItem: null,
                 itemCode: '',
@@ -280,13 +280,13 @@ function ItemDetail({...props}) {
 
                     <div className ="formik ItemCard-info">
                         <div className='ItemCard-Colum1'>
-                            <TextInput  type='number' value={data.itemCode} label="Codigo"   disabled={!newItemFlag}  required  onChange={handleInputChange} name="itemCode" />
+                            <TextInput  type='number'  value={data.itemCode} label="Codigo"   disabled={!newItemFlag}  required  onChange={handleInputChange} name="itemCode" />
                             <TextInput  type='text' value={data.creator.idUser || ''}  label="Creador" onChange={handleInputChange} name="creator" />
                             <TextInput  type='text' value={data.descriptionItem} label="Descripcion"  onChange={handleInputChange} required name="descriptionItem"/>  
                         </div>
                         
                         <div className='ItemCard-Colum2'>
-                            <TextInput  type='number' value={data.price}  label="Precio" onChange={handleInputChange} name="price"/>                        
+                            <TextInput  type='number' step="0.01" value={data.price}  label="Precio" onChange={handleInputChange} name="price"/>                        
                             <SelectInput label='Estado' value={data.state} 
                                         disabled={(data.state==="Descontinuado")}  
                                         onChange={handleSelectChange} 

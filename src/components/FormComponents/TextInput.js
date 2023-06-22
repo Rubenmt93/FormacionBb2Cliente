@@ -14,7 +14,8 @@ const TextInput = ({label, ...props}) => {
                                      type={props.type} 
                                      onChange={props.onChange} 
                                      name={props.name}
-                                     required={props.required}/>
+                                     required={props.required}
+                                     step={props?.step}/>
         </div>        
       </div>       
     </div>

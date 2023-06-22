@@ -22,14 +22,11 @@ function TableSupplier( {...props}) {
       .then((response) => response.json())
       .then((data) =>{                 
         setData(data)        
-      
       }).catch((e)=>{
         console.error(e)
       });
-},[supplierAplicated, estadoModal])
-  const submit = () => {
-    props.handleSubmitSupplier(supplierAplicated)
-  }
+  },[supplierAplicated, estadoModal,newSupplier])
+ 
 
   const handleChange =(id) =>{    
     if (supplierAplicated.includes(id)){
@@ -37,9 +34,7 @@ function TableSupplier( {...props}) {
     }else{      
       setSupplierAplicated([...supplierAplicated,id])      
     }    
-  }
-
-  
+  }  
   const openModal = ()  => {
     setEstadoModal(!estadoModal); 
     var aux=  []
@@ -51,6 +46,9 @@ function TableSupplier( {...props}) {
 
   const handleCloseForm = (e) => {
     setNewSupplier(!newSupplier)
+  }
+  const submit = () => {
+    props.handleSubmitSupplier(supplierAplicated)
   }
   return (
     <div>
