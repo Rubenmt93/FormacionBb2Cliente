@@ -20,9 +20,9 @@ function ItemDetail({...props}) {
         idItem: 0,
         itemCode: '',
         descriptionItem: '',
-        price: '',
-        creator: '',
-        state: '',
+        price: 0,
+        creator: {"idUser":currentUser[1]},
+        state: 'Activo',
         creationDate: new Date(),
         suppliers: [],
         priceReductions: [],
@@ -41,17 +41,25 @@ function ItemDetail({...props}) {
     );
 
     useEffect(() =>{
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Authorization': token }        
-          }  
-            
-        if(!currentUser){      
-          navigate('/');
-        }     
-        fetch("http://localhost:8080/api/items/"+idItem, requestOptions)
-        .then((response) => response.json())
-        .then((data) =>{ console.log(data);  setData((data)) }).catch((e)=>  { console.error(e) });
+        if(idItem != 0){
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Authorization': token }        
+            }                  
+            if(!currentUser){      
+              navigate('/');
+            }     
+            fetch("http://localhost:8080/api/items/"+idItem, requestOptions)
+            .then((response) => response.json())
+            .then((data) =>{ 
+                console.log(data)
+                setData((data)) 
+
+            }).catch((e)=>  { console.error(e) });
+        }else{
+            setNewItemFlag(true)
+        }
+       
     },[refresh])  
 
     const handleInputChange = (event) => {
@@ -76,80 +84,43 @@ function ItemDetail({...props}) {
         })  
         setTouched(true);
     }
-    const saveNewItem = () => {
-         
+  
+    const saveItem = (event) => {
+        event.preventDefault()            
+         var priceReductionAux = []
+        data.priceReductions.forEach(element => {
+            priceReductionAux.push({"idPriceReduction" : element.idPriceReduction})
+            });
         
         const requestOptions = {                  
             method: "POST",
             headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    },      
-
-          
-            body: JSON.stringify({               
+                    },    
+            body: JSON.stringify({   
+                idItem: data.idItem,            
                 itemCode: data.itemCode,
                 descriptionItem: data.descriptionItem,
                 price: data.price,
-                creator: { "idUser": data.creator},
+                creator: { "idUser": data.creator.idUser},
                 state: data.state,
                 creationDate:  data.creationDate,
                 suppliers: data.suppliers,
-                priceReductions: data.priceReductions,
+                priceReductions: priceReductionAux,
                 discontinuedReport: null,
             }),           
         };        
         
         fetch("http://localhost:8080/api/items", requestOptions)
             .then(response => {         
-               SetEstadoModalConfirmacion({estado :true, mensaje :"Item creado",   cuerpo: "Se ha creado el nuevo item"})
+                SetEstadoModalConfirmacion({estado :true, mensaje :"Actualizado",   cuerpo: "Se ha modificado el item en la base de datos"})
             }).catch((e)=>{
                 console.error(e)
         });
 
         setTouched(false);
-    }
-    const saveItem = (event) => {
-        event.preventDefault()      
-        if(newItemFlag){
-            saveNewItem()
-        }else{
-
-           
-            var priceReductionAux = []
-            data.priceReductions.forEach(element => {
-                priceReductionAux.push({"idPriceReduction" : element.idPriceReduction})
-             });
-           
-            const requestOptions = {                  
-                method: "POST",
-                headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                        },    
-                body: JSON.stringify({   
-                    idItem: data.idItem,            
-                    itemCode: data.itemCode,
-                    descriptionItem: data.descriptionItem,
-                    price: data.price,
-                    creator: { "idUser": data.creator.idUser},
-                    state: data.state,
-                    creationDate:  data.creationDate,
-                    suppliers: data.suppliers,
-                    priceReductions: priceReductionAux,
-                    discontinuedReport: null,
-                }),           
-            };        
-            
-            fetch("http://localhost:8080/api/items", requestOptions)
-                .then(response => {         
-                   SetEstadoModalConfirmacion({estado :true, mensaje :"Actualizado",   cuerpo: "Se ha modificado el item en la base de datos"})
-                }).catch((e)=>{
-                    console.error(e)
-            });
-    
-            setTouched(false);
-        }
+        navigate('/')
     }
 
     const checkChanges  =() => {
@@ -164,7 +135,7 @@ function ItemDetail({...props}) {
     const newItem = () => {
     
             setData({
-                idItem: null,
+                idItem: 0,
                 itemCode: '',
                 descriptionItem: '',
                 price: 0,
@@ -252,7 +223,7 @@ function ItemDetail({...props}) {
                discontinuedReport: data.discontinuedReport,
            }),           
        };        
-       console.log(requestOptions.body)
+      
        fetch("http://localhost:8080/api/items", requestOptions)
            .then(response => {         
                SetEstadoModalConfirmacion({estado :true, mensaje :"Item Actualizado", cuerpo: "Se han actualizado los campos del item"})    
@@ -281,12 +252,12 @@ function ItemDetail({...props}) {
                     <div className ="formik ItemCard-info">
                         <div className='ItemCard-Colum1'>
                             <TextInput  type='number'  value={data.itemCode} label="Codigo"   disabled={!newItemFlag}  required  onChange={handleInputChange} name="itemCode" />
-                            <TextInput  type='text' value={data.creator.idUser || ''}  label="Creador" onChange={handleInputChange} name="creator" />
-                            <TextInput  type='text' value={data.descriptionItem} label="Descripcion"  onChange={handleInputChange} required name="descriptionItem"/>  
+                            <TextInput  type='text' value={data.creator.idUser || ''}  label="Creador" disabled= {(data.state === 'Descontinuado')} onChange={handleInputChange} name="creator" />
+                            <TextInput  type='text' value={data.descriptionItem} label="Descripcion" disabled= {(data.state === 'Descontinuado')} onChange={handleInputChange} required name="descriptionItem"/>  
                         </div>
                         
                         <div className='ItemCard-Colum2'>
-                            <TextInput  type='number' step="0.01" value={data.price}  label="Precio" onChange={handleInputChange} name="price"/>                        
+                            <TextInput  type='number' step="0.01" value={data.price}  label="Precio" disabled= {(data.state === 'Descontinuado')} onChange={handleInputChange} name="price"/>                        
                             <SelectInput label='Estado' value={data.state} 
                                         disabled={(data.state==="Descontinuado")}  
                                         onChange={handleSelectChange} 
@@ -294,7 +265,7 @@ function ItemDetail({...props}) {
                                 <option value='Activo'> Activo</option>
                                 <option value='Descontinuado'> Descontinuado</option>                      
                             </SelectInput>              
-                            <DatePicker value={data.creationDate} label="Fecha de Creacion" disabled={!newItemFlag} onChange={handleDateChange} name="creationDate" />
+                            <DatePicker value={data.creationDate} label="Fecha de Creacion" disabled={(!newItemFlag)||(data.state === 'Descontinuado')} onChange={handleDateChange} name="creationDate" />
                         </div> 
                     </div> 
                                            
@@ -330,6 +301,9 @@ function ItemDetail({...props}) {
                      </div>                   
                 </div>
             </Modal>
+
+
+            
       </div>
     
 

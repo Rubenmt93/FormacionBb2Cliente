@@ -66,22 +66,22 @@ const Items =()=>{
         <h1>Listado de Items</h1>
       </div>
 
-      <div  className='container'>
-      
-              
-        <div className="ItemCard-info" >           
-            <SelectInput label='Estado' value={state} 
-                                        onChange={handleSelectChange} 
-                                        name="state">
-                <option value='Todos'> Todos</option>                          
-                <option value='Activo'> Activo</option>
-                <option value='Descontinuado'> Descontinuado</option>                      
-            </SelectInput>        
+      <div  className='container'>  
+        <div className='flexLine'>
+          <div className="ItemCard-info" >           
+              <SelectInput label='Estado' value={state} 
+                                          onChange={handleSelectChange} 
+                                          name="state">
+                  <option value='Todos'> Todos</option>                          
+                  <option value='Activo'> Activo</option>
+                  <option value='Descontinuado'> Descontinuado</option>                      
+              </SelectInput>          
+            </div>
+
+          <button className='primary-button alignCenter' onClick={() =>{showItems(0)}}>Nuevo</button>
             
-          </div>
-          
+        </div>           
         
-      
       </div>
       <div className='container'>
         <table>

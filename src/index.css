@@ -123,13 +123,17 @@ h2{
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-top: auto;
 }
 
 .flexColumn{
   display: flex;
   flex-direction: column; 
-   
 }
+.alignCenter{
+  align-self: center;
+}
+
 select { 
   background:none;
   color: black;
@@ -254,4 +258,30 @@ label{
  }
   .openTableIcon{
     font-size: x-large;
+  }
+
+  /**************************************************/
+  .multiselect-card{
+    display: flex;
+    flex-direction: row;
+    max-height: 44px !important
+  }
+  
+  .ItemCard-info :nth-child(odd){
+   
+    border: none !important;
+  }
+  .p-multiselect{
+    margin: 0 !important;
+  }
+  .p-multiselect .p-multiselect-label {   
+    padding: 0 !important;
+    font-size: small;
+  }
+  .p-checkbox .p-checkbox-box.p-highlight {
+    border:none !important;
+    background-color: #1766DC !important;
+  }
+  .p-multiselect-label-container {
+    margin: 0 !important
   }
