@@ -8,7 +8,7 @@ function TableSupplier( {...props}) {
   
   const [estadoModal, setEstadoModal] =useState(false);
   const [data, setData] = useState(null); 
-  const [priceReductionAplicated, setPriceReductionAplicated] = useState([])
+  const [supplierAplicated, setSupplierAplicated] = useState([])
   const [newSupplier, setNewSupplier] = useState(false); 
   useEffect(() =>{
     const token = localStorage.getItem("FormacionBb2Token")
@@ -26,17 +26,16 @@ function TableSupplier( {...props}) {
       }).catch((e)=>{
         console.error(e)
       });
-},[priceReductionAplicated, estadoModal])
+},[supplierAplicated, estadoModal])
   const submit = () => {
-    props.handleSubmitDiscount(priceReductionAplicated)
+    props.handleSubmitSupplier(supplierAplicated)
   }
 
   const handleChange =(id) =>{    
-    if (priceReductionAplicated.includes(id)){
-      setPriceReductionAplicated(priceReductionAplicated.filter(item => item !== id))
+    if (supplierAplicated.includes(id)){
+      setSupplierAplicated(supplierAplicated.filter(item => item !== id))
     }else{      
-      console.log("Añadió")
-      setPriceReductionAplicated([...priceReductionAplicated,id])      
+      setSupplierAplicated([...supplierAplicated,id])      
     }    
   }
 
@@ -47,14 +46,18 @@ function TableSupplier( {...props}) {
     props.suppliers?.map( element => {
       aux.push(element.idSupplier)
     })
-    setPriceReductionAplicated(aux)
+    setSupplierAplicated(aux)
+  }
+
+  const handleCloseForm = (e) => {
+    setNewSupplier(!newSupplier)
   }
   return (
     <div>
       <h3 className="title">Proveerdores</h3>
         <div className='container'>
           <div className='reverse-row'>
-            <AiOutlinePlusCircle onClick={() => openModal()}/>
+            <AiOutlinePlusCircle className='openTableIcon' onClick={() => openModal()}/>
           </div>
 
           <table>
@@ -85,7 +88,10 @@ function TableSupplier( {...props}) {
               <div className='contenido'>
                 <h1>Proveedores</h1>     
                 <div className='flexLine' >
-                  {newSupplier?  <NewSupplierForm />   : <div className='reverse-row'><button className='secondary-button' onClick={() => setNewSupplier(!newSupplier)}>Crear</button> </div>}
+                  {newSupplier?  <NewSupplierForm handleCloseForm={handleCloseForm} />   : 
+                                  <div className='reverse-row'>
+                                    <button className='secondary-button' onClick={() => setNewSupplier(!newSupplier)}>Crear</button> 
+                                  </div>}
 
                 </div>           
                 <table className='tablaModal'>
@@ -100,7 +106,7 @@ function TableSupplier( {...props}) {
                       
                     <tr key={supplier.idSupplier}>    
                           {}
-                          <td> <p><Checkbox checked={priceReductionAplicated.includes(supplier.idSupplier)} onChange={() => {handleChange(supplier.idSupplier)}}></Checkbox> </p></td>                         
+                          <td> <p><Checkbox checked={supplierAplicated.includes(supplier.idSupplier)} onChange={() => {handleChange(supplier.idSupplier)}}></Checkbox> </p></td>                         
                           <td> <p>{supplier.name}</p></td>
                           <td> <p>{supplier.country}</p> </td>
                          

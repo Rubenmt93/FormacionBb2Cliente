@@ -162,13 +162,13 @@ function ItemDetail({...props}) {
     }
 
     const newItem = () => {
-       
+    console.log("EL id de usuario es",currentUser[1] )
             setData({
                 idItem: null,
                 itemCode: '',
                 descriptionItem: '',
                 price: 0,
-                creator: currentUser[1],
+                creator: {"idUser":currentUser[1]},
                 state: 'Activo',
                 creationDate: new Date(),
                 suppliers: [],
@@ -204,7 +204,7 @@ function ItemDetail({...props}) {
                 creationDate:  data.creationDate,
                 suppliers: data.suppliers,
                 priceReductions: aux,
-                discontinuedReport: null,
+                discontinuedReport: data.discontinuedReport,
             }),           
         };        
         
@@ -216,14 +216,54 @@ function ItemDetail({...props}) {
                              
             }).catch((e)=>{
                 console.error(e)
-        });
-        
-        setTouched(false)
-
-     
-        
+        });        
+        setTouched(false)            
     }
+   
 
+    const handleSubmitSupplier = (supplierAplicated) => {
+        var priceReductionToJson= []
+        data.priceReductions.forEach( element => {
+            priceReductionToJson.push({"idPriceReduction" : element.idPriceReduction})
+        });   
+        var SupplierToJson = []
+        supplierAplicated.forEach(element => {
+            SupplierToJson.push({"idSupplier" : element})
+       });                
+       const requestOptions = {                  
+           method: "POST",
+           headers: {
+                   Accept: "application/json",
+                   "Content-Type": "application/json",
+                   'Authorization': token,
+                   },      
+
+         
+           body: JSON.stringify({
+               idItem: data.idItem,
+               itemCode: data.itemCode,
+               descriptionItem: data.descriptionItem,
+               price: data.price,
+               creator: { "idUser": data.creator.idUser},
+               state: data.state,
+               creationDate: data.creationDate,
+               suppliers:SupplierToJson,
+               priceReductions: priceReductionToJson,
+               discontinuedReport: data.discontinuedReport,
+           }),           
+       };        
+       console.log(requestOptions.body)
+       fetch("http://localhost:8080/api/items", requestOptions)
+           .then(response => {         
+               SetEstadoModalConfirmacion({estado :true, mensaje :"Item Actualizado", cuerpo: "Se han actualizado los campos del item"})    
+              
+               setRefresh(!refresh)
+                            
+           }).catch((e)=>{
+               console.error(e)
+       });        
+       setTouched(false)
+    }
     return (
       
         <div>   
@@ -260,7 +300,7 @@ function ItemDetail({...props}) {
                                            
                 </form>    
 
-                <TableSupplier suppliers={data?.suppliers} itemCode={data.idItem}/>
+                <TableSupplier suppliers={data?.suppliers} itemCode={data.idItem} handleSubmitSupplier={handleSubmitSupplier}/>
                 <TableDiscount discount={data?.priceReductions} handleSubmitDiscount={handleSubmitDiscount} itemCode={data.idItem}/>      
             </div>
             <Modal

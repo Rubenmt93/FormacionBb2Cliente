@@ -56,7 +56,7 @@ function TableDiscount({...props}) {
        <h3 className="title">Reducciones de precios</h3>
         <div className='container'>
           <div className='reverse-row'>
-             <AiOutlinePlusCircle onClick={() => openModal()}/> 
+             <AiOutlinePlusCircle className='openTableIcon' onClick={() => openModal()}/> 
           </div>
 
           <table>
