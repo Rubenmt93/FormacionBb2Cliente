@@ -24,7 +24,7 @@ function AdminPanel() {
         .catch((e)=>{
           console.error(e)
         });        
-    },[refresh])
+    },[refresh,ruta,token])
 
 
     const showUser = (idUser) =>{

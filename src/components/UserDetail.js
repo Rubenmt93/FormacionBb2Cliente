@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TextInput from './FormComponents/TextInput';
 import { AiOutlineSave, AiOutlinePlusCircle } from 'react-icons/ai'
 import Modal from './Modal';
-import { useParams, useNavigate } from 'react-router-dom'   
+import { useParams } from 'react-router-dom'   
 import { MultiSelect } from 'primereact/multiselect';
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -11,7 +11,7 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import bcrypt from 'bcryptjs'
 function UserDetail() {
-    const [refresh, setRefresh] = useState(true)
+  
     const { idUser } = useParams()      
     const token = localStorage.getItem("FormacionBb2Token")     
     const [data, setData] = useState({
@@ -56,9 +56,9 @@ function UserDetail() {
                 }).catch((e)=>  { console.error(e) });            
         }else{
             setNewUserFlag(true)
-            console.log("AQui")
+           
         }    
-    },[])  
+    },[idUser,token])  
 /*********************************************************************** */
     const handleInputChange = (event) => {
         setTouched(true);
@@ -71,7 +71,7 @@ function UserDetail() {
     
    
     const saveUser = (event) => {
-        const salt = bcrypt.genSaltSync(10)
+        
         event.preventDefault()     
         var rolAux = []
         selectedRol.forEach(element => {
@@ -79,10 +79,10 @@ function UserDetail() {
         });
         var hashedPassword
         if(newUserFlag){
-            var hashedPassword = bcrypt.hashSync(data.password, '$2a$10$CwTycUXWue0Thq9StjUM0u') 
+            hashedPassword = bcrypt.hashSync(data.password, '$2a$10$CwTycUXWue0Thq9StjUM0u') 
            
         }else{
-            var hashedPassword= data.password  
+             hashedPassword= data.password  
         }
 
         setData({...data, rol:rolAux})      

@@ -55,7 +55,7 @@ function TableSupplier( {...props}) {
       <h3 className="title">Proveerdores</h3>
         <div className='container'>
           <div className='reverse-row'>
-            <AiOutlinePlusCircle className='openTableIcon' onClick={() => openModal()}/>
+            <AiOutlinePlusCircle className='openTableIcon' onClick={() => {(props.state === "Activo")?openModal(): <></>}}/>
           </div>
 
           <table>

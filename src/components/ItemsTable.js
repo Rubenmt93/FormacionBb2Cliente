@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SelectInput from './FormComponents/SelectInput';
 import Modal from './Modal';
 const token=null           
-const Items =()=>{
+const ItemsTable =()=>{
   const navigate = useNavigate();
   var numeral = require('numeral');
   const [data, setData] = useState(null);
@@ -21,8 +21,9 @@ const Items =()=>{
     };
    
     if(state !== "Todos"){
-      ruta = "http://localhost:8080/api/items/filtrar/"+state
+      ruta = ruta+ "/filtrar/"+state
     }
+
       fetch(ruta, requestOptions)
       .then((response) => response.json())
       .then((data) =>{    
@@ -68,15 +69,20 @@ const Items =()=>{
 
       <div  className='container'>  
         <div className='flexLine'>
-          <div className="ItemCard-info" >           
-              <SelectInput label='Estado' value={state} 
-                                          onChange={handleSelectChange} 
-                                          name="state">
-                  <option value='Todos'> Todos</option>                          
-                  <option value='Activo'> Activo</option>
-                  <option value='Descontinuado'> Descontinuado</option>                      
-              </SelectInput>          
-            </div>
+          <div className="ItemCard-info" > 
+            <SelectInput label='Estado' value={state} 
+                                        onChange={handleSelectChange} 
+                                        name="state">
+                <option value='Todos'> Todos</option>                          
+                <option value='Activo'> Activo</option>
+                <option value='Descontinuado'> Descontinuado</option>                      
+            </SelectInput>    
+            
+            <button className='primary-button alignCenter fontSizeRevert' onClick={() =>setState("Price")}>Ordenar precios</button>
+                 
+          </div>
+
+        
 
           <button className='primary-button alignCenter' onClick={() =>{showItems(0)}}>Nuevo</button>
             
@@ -135,4 +141,4 @@ const Items =()=>{
   )
     
 }
-export default Items
+export default ItemsTable

@@ -51,12 +51,24 @@ function TableDiscount({...props}) {
    const submit = () => {
      props.handleSubmitDiscount(priceReductionAplicated)
    }
+
+   const calculatePrice =( type, amount) =>{
+      switch(type){
+        case 'Porcentual': 
+            return (props?.price -props.price*amount)
+         
+        case 'CantidadFija':
+            return props?.price- amount
+        case 'CambioDePrecio':
+            return amount   
+      }
+   }
   return (
     <div>
        <h3 className="title">Reducciones de precios</h3>
         <div className='container'>
           <div className='reverse-row'>
-             <AiOutlinePlusCircle className='openTableIcon' onClick={() => openModal()}/> 
+             <AiOutlinePlusCircle className='openTableIcon' onClick={() => {(props.state === "Activo")?openModal(): <></>}}/> 
           </div>
 
           <table>
@@ -67,6 +79,7 @@ function TableDiscount({...props}) {
                 <th>Descuento</th>
                 <th>Fecha de inicio</th>
                 <th>Fecha de fin</th>
+                <th>Precio Resultante</th>
               </tr>         
                 {props?.discount?.map( (priceReductions) => (
                 <tr key={priceReductions.idPriceReduction}>
@@ -75,7 +88,7 @@ function TableDiscount({...props}) {
                       <td> <p>{priceReductions.reducedPrice}<span>{(priceReductions.reductionType ==="Porcentual")? '% ': '€'}</span></p> </td>
                       <td> <p>{priceReductions.startDate.substring(0, priceReductions.startDate.length - 10).replace('T',' ')}</p></td>
                       <td> <p>{priceReductions.endDate.substring(0, priceReductions.endDate.length - 10).replace('T',' ')}</p></td>
-                     
+                      <td> <p>{calculatePrice(priceReductions.reductionType,priceReductions.reducedPrice)}€</p></td>
                 </tr>
               ))}   
 

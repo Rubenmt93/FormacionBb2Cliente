@@ -37,7 +37,7 @@ function Login() {
         .catch((e)=>{
           console.error(e)
         });
-    },[query]);   
+    },[query,navigate]);   
 
     const submit = (values) => {       
         setQuery(values)        

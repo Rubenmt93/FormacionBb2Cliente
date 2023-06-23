@@ -67,6 +67,9 @@ code {
  svg{
    margin: auto 0;
  }
+ .fontSizeRevert{
+  font-size: revert;
+ }
 /* .................................................... */
 table {
   font-family: Arial, Helvetica, sans-serif;
