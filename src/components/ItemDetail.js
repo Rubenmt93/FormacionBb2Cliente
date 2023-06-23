@@ -147,7 +147,7 @@ function ItemDetail({...props}) {
         });
 
         setTouched(false);
-        navigate('/')
+        
     }
 
     const checkChanges  =() => {

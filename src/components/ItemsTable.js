@@ -11,10 +11,10 @@ const ItemsTable =()=>{
   const [state, setState] = useState("Todos");
   const [refresh, setRefresh] = useState(true)
   const [estadoModal, SetEstadoModal] = useState({estado:false, idItem:null});
-  var ruta ="http://localhost:8080/api/items";
+  
   const currentUser = localStorage.getItem("FormacionBb2User").split(" ");
   useEffect(() =>{
-    
+    var ruta ="http://localhost:8080/api/items";
     const requestOptions = {
       method: 'GET',
       headers: { 'Authorization': token }
@@ -30,10 +30,7 @@ const ItemsTable =()=>{
         setData(data)})
       .catch((e)=>{
         console.error(e)
-      });
-
-
-      console.log(data)
+      });    
   },[state, refresh])   
 
    

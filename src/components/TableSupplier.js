@@ -71,7 +71,7 @@ function TableSupplier( {...props}) {
                       <td> <p>{supplier.country}</p></td>
                      
                 </tr>
-              ))}   
+              ))}    
 
               
             </tbody>

@@ -55,12 +55,13 @@ function TableDiscount({...props}) {
    const calculatePrice =( type, amount) =>{
       switch(type){
         case 'Porcentual': 
-            return (props?.price -props.price*amount)
+            return (props?.price - props.price*amount)
          
         case 'CantidadFija':
-            return props?.price- amount
+            return props?.price - amount
         case 'CambioDePrecio':
-            return amount   
+            return amount 
+           default : return props?.price
       }
    }
   return (
@@ -103,7 +104,7 @@ function TableDiscount({...props}) {
                 mostrarHeader={false}>
 
               <div className='contenido'>
-                <h1>Price Reductions</h1>  
+                <h1>Reducciones de precio</h1>  
                 <div className='flexLine' >
                   {newPriceReduction?  <NewPriceReductionForm handleCloseForm={handleCloseForm} />   : 
                                   <div className='reverse-row'>
